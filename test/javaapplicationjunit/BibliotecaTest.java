@@ -7,9 +7,6 @@ package javaapplicationjunit;
 
 import org.junit.Test;
 import org.junit.*;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author andre
@@ -38,7 +35,7 @@ public class BibliotecaTest {
     //2
     @Test
     public void responderPergunta() throws Exception{
-        //Cria e inicializa os objetos necessários para o teste
+        //Cria e inicializa os objetos necessários para o teste de adicionar uma resposta há uma pergunta
         Usuario u = new Usuario("Pedro", "Pedro@gmail.com", "Estudante" );
         Usuario u2 = new Usuario("Lucas", "Lucas@gmail.com", "Professor" );
         Pergunta p = new Pergunta("Pedir com licença", "Como posso gesticular para pedir licença a alguem");
@@ -50,69 +47,55 @@ public class BibliotecaTest {
         Resposta r = new Resposta("Abane a mão", "Balance a mão no sentido anti-horário na altura da cabeça", u2);
         u2.criarResposta(r, p);
         Assert.assertNotNull("O resposta não pode ser nulo", r);
+        p = p.adicionaResposta(r);
         Assert.assertEquals(r, p.respostas.get(0));
+        
+        
+        //adiciona mais uma resposta a pergunta e testa se a pergunta tem 2 respostas
+        Resposta r2 = new Resposta("Teste resposta 2", "teste 2 resposta do corpo", u2);
+        u2.criarResposta(r2, p);
+        Assert.assertNotNull("O resposta não pode ser nulo", r2);
+        p = p.adicionaResposta(r2);
+        Assert.assertTrue(p.respostas.size() == 2);
+        
         
         
     }
     
     //3
-    /*@Test
-    public void testEmprestimoEDevolucao() throws Exception {
-        //Cria e inicializa os objetos necessários para o teste
-        Repositorio r = new Repositorio();
-        Biblioteca b = new Biblioteca(r);
-        Usuario u = new Usuario("1", "user1");
-        Livro l1 = new Livro("123", "Moby Dick");
-        Livro l2 = new Livro("456", "Planejamento Sprint");
-        Livro l3 = new Livro("789", "Java Completo");
+    @Test
+    public void excluirPergunta() throws Exception {
+        //Inicializa os objetos para teste
+        Usuario u = new Usuario("Pedro", "Pedro@gmail.com", "Estudante" );
+        Usuario u2 = new Usuario("Lucas", "Lucas@gmail.com", "Professor" );
+        Pergunta p = new Pergunta("Pedir com licença", "Como posso gesticular para pedir licença a alguem");
+        u.criarPergunta(p);
+        Resposta r = new Resposta("Abane a mão", "Balance a mão no sentido anti-horário na altura da cabeça", u2);
+        u2.criarResposta(r, p);
+        p = p.adicionaResposta(r);
+        Resposta r2 = new Resposta("Teste resposta 2", "teste 2 resposta do corpo", u2);
+        u2.criarResposta(r2, p);
+        p = p.adicionaResposta(r2);
         
-        //Adiciona os livros a biblioteca
-        b.adicionarLivroAcervo(l1);
-        b.adicionarLivroAcervo(l2);
-        b.adicionarLivroAcervo(l3);
+        //chama o método de exluir e faz os testes
+        p = p.excluirPergunta(p);
+        Assert.assertNull("O usuário deve ser nulo", p.autor);
+        Assert.assertTrue(p.respostas.isEmpty());
+
         
-        //Empresta os livros ao usuário
-        b.emprestarLivro(l1, u);
-        b.emprestarLivro(l2, u);
-        b.emprestarLivro(l3, u);
-        
-        //Cria uma lista de livros e adiciona todos os livros emprestados
-        List<Livro> listLivros = new ArrayList<Livro>();
-        listLivros.add(l1);
-        listLivros.add(l2);
-        listLivros.add(l3);
-        
-        //Recebe a devolução dos 2 livros
-        b.receberLivroEmprestado(l1);
-        b.receberLivroEmprestado(l2);
-        
-        //Lista de livros emprestados ao usuário
-        List<Livro> livrosEmprestados = new ArrayList<Livro>();
-        livrosEmprestados = b.livrosEmprestadosUsuario(u);
-       
-        //Primeiro valida se os livros estão disponível para emprestimo
-        Assert.assertFalse("O livro deveria estar disponível para emprestimo", b.estaEmprestado(l1));
-        Assert.assertFalse("O livro deveria estar disponível para emprestimo", b.estaEmprestado(l2));
-        
-        //Compara a lista de livros com a lista de livros emprestados
-        Assert.assertFalse("A devulução dos livros não funcionou corretamente!", listLivros.size() == livrosEmprestados.size() && livrosEmprestados.containsAll(listLivros));
-            
     }
     
     //4
     @Test
     public void testEmprestarLivroEmprestado() throws Exception{
-        //Cria e inicializa os objetos necessários para o teste
-        Repositorio r = new Repositorio();
-        Biblioteca b = new Biblioteca(r);
-        Usuario u1 = new Usuario("1", "user1");
-        Livro l1 = new Livro("123", "Moby Dick");
-        
-        b.adicionarLivroAcervo(l1);
-        b.emprestarLivro(l1, u1);
-        
-        Assert.assertTrue("O livro deveria estar emprestado para outro usuário", b.estaEmprestado(l1));
+        //Cria uma resposta e adiciona 10 curtidas a ela
+        Usuario u = new Usuario("Pedro", "Pedro@gmail.com", "Estudante" );
+        Resposta r = new Resposta("Teste resposta 2", "teste 2 resposta do corpo", u);
+        for(int i = 0; i < 10; i++){
+            r.curtirResposta(r);
+        }
+        Assert.assertTrue("O número de curtidas é diferente de 10", r.curtidas == 10);
          
     }
-*/
+
 }

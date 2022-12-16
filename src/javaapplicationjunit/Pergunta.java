@@ -9,6 +9,7 @@ package javaapplicationjunit;
  * @author andre
  */
 import java.util.ArrayList;
+import java.util.List;
 
 public class Pergunta {
     public String titulo;
@@ -16,7 +17,8 @@ public class Pergunta {
     public String imagem;
     public Enum status;
     public Usuario autor;
-    public ArrayList<Resposta> respostas;
+    public List<Resposta> respostas = new ArrayList<Resposta>();
+
     
     
     public enum situacao{
@@ -30,5 +32,17 @@ public class Pergunta {
         this.titulo = titulo;
         this.corpo = corpo;
         this.status = situacao.ABERTA;
+    }
+    
+    public Pergunta adicionaResposta(Resposta r){
+        this.respostas.add(r);
+        return this;
+    }
+    
+    public Pergunta excluirPergunta(Pergunta p){
+        this.respostas.clear();
+        this.autor = null;
+        return this;
+        
     }
 }

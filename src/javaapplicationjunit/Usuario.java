@@ -30,11 +30,8 @@ public class Usuario {
         
     public void criarResposta(Resposta r, Pergunta p){
         r.autor = this;
-        p.respostas.add(r);
     }
     
-    public void criarDenuncia(Denuncia d){
-        
-    }
+
     
 }

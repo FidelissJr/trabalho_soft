@@ -33,6 +33,13 @@ public class Resposta {
         this.status = situacao.AGUARDANDO_LEITURA;
 
     }
+    
+    public void curtirResposta(Resposta r){
+        if(this.curtidas <= 0)
+            this.curtidas = 1;
+        else
+            this.curtidas ++;
+    }
 
         
 
